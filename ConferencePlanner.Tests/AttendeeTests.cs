@@ -38,5 +38,44 @@ namespace ConferencePlanner.Tests
             // assert
             schema.Print().MatchSnapshot();
         }
+
+        [Fact]
+        public async Task RegisterAttendee()
+        {
+            // arrange
+            var executor = await new ServiceCollection()
+                .AddPooledDbContextFactory<ApplicationDbContext>(
+                    options => options.UseInMemoryDatabase("Data Source=conferences.db"))
+                .AddGraphQL()
+                .AddQueryType(d => d.Name("Query"))
+                .AddTypeExtension<AttendeeQuery>()
+                .AddMutationType(d => d.Name("Mutation"))
+                .AddTypeExtension<AttendeeMutation>()
+                .AddType<AttendeeType>()
+                .AddType<SessionType>()
+                .AddType<SpeakerType>()
+                .AddType<TrackType>()
+                .EnableRelaySupport()
+                .BuildRequestExecutorAsync();
+
+            //act
+            var result = await executor.ExecuteAsync(@"
+                        mutation RegisterAttendee {
+                            registerAttendee(
+                                input: {
+                                    emailAddress: ""michael@chillicream.com""
+                                        firstName: ""michael""
+                                        lastName: ""staib""
+                                        userName: ""michael3""
+                                    })
+                            {
+                                attendee {
+                                    id
+                                }
+                            }
+                        }");
+            // assert
+            result.ToJson().MatchSnapshot();
+        }
     }
 }

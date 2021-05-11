@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HotChocolate.Abstractions" Version="11.2.2" />
+    <PackageReference Include="HotChocolate.Data" Version="11.2.2" />
+    <PackageReference Include="HotChocolate.Types" Version="11.2.2" />
+    <PackageReference Include="HotChocolate.Types.CursorPagination" Version="11.2.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ConferencePlanner.Contacts\ConferencePlanner.Contacts.csproj" />
+  </ItemGroup>
+
+</Project>
